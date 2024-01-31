@@ -51,7 +51,7 @@ const Footer = () => {
 
   return (
     <footer className='footer'>
-      { isOpen ? <Order closeHour={closeHour} /> : (
+      { isOpen ? <Order closeHour={closeHour} openHour={openHour} /> : (
         <div>
           <p>We closed.</p>
         </div>
@@ -80,13 +80,15 @@ const PizzaList = ({content}) => {
 const Pizza = (pizzaContent) => {
   const content = pizzaContent.pizzaContent;
   return (
-    <li className={ content.soldOut ? 'pizza' : 'pizza' }>
+    <li className={`pizza ${content.soldOut ? 'sold-out' : "" }`}>
       <img src={content.photoName} alt={content.name} />
-      <h3>{content.name}</h3>
-      <p>{content.ingredients}</p><span>{content.price}$</span>
+      <div>
+        <h3>{content.name}</h3>
+        <p>{content.ingredients}</p><span>{content.price}$</span>
+        <span>{content.soldOut ? "SOLD OUT" : content.price}</span>
+      </div>
     </li>
   )
 }
-
 
 export default App;
