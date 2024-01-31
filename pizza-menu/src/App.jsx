@@ -1,63 +1,92 @@
 import './App.css';
 import './data.js'
 
-function App({content}) {
+function App({Pizzas}) {
   return (
     <div className="App">
       <Header />
-      <Menu content={content} />
+      <Menu content={Pizzas} />
       <Footer />
     </div>
   );
 }
 
 const Header = () => {
-
-  const style = {color:"red", fontSize:"48px", textTransform:"uppercase"}
-
   return (
-    <header>
-      <h1 style={style} className="header">Fast React Pizza Co.</h1>
+    <header className='header'>
+      <h1>Fast React Pizza Co.</h1>
     </header>
   )
 }
 
 const Menu = ({content}) => {
+  const contentCount = content.length;
+
   return (
     <main className='menu'>
       <h2>Our menu</h2>
-      <div className='pizzas'>
-      {
-        content.map((item) => {
-          <Pizza content={item}/>
-        })
-      }
-      </div>
+      { contentCount > 0 ? (
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All from our stone oven, all organic, all delicious.
+          </p>
+          <div className="container">
+            <PizzaList content={content} />
+          </div>
+        </>
+      ) : (
+        <div>
+          <p>Pizza to cook.</p>
+        </div>
+      )}
     </main>
   )
 }
 
 const Footer = () => {
-
   const hour = new Date().getHours();
   const openHour = 12;
-  const closeHour = 22;
+  const closeHour = 23;
   const isOpen = hour >= openHour && hour <= closeHour;
 
-  // if (hour >= openHour && hour <= closeHour) alert("Were're currently open!")
-  // else alert("Sorry we're closed")
-
-  return <footer className='footer'>{new Date().toLocaleTimeString()}. We're currently open</footer>
+  return (
+    <footer className='footer'>
+      { isOpen ? <Order closeHour={closeHour} /> : (
+        <div>
+          <p>We closed.</p>
+        </div>
+      )}
+    </footer>
+  )
 }
 
-const Pizza = ({name, ingredients, price, photoName, soldOut}) => {
+const Order = ({closeHour, openHour}) => {
   return (
-    <div className='{ soldOut ? {pizza} : {pizza, pizza.sold-out} }'>
-      <img src={photoName} alt={name} />
-      <h3>{name}</h3>
-      <p>{ingredients}</p><p>{price}$</p>
+    <div className='order'>
+        <p>We're open from {openHour}:00 to {closeHour}:00. Come visit us or order online.</p>
+        <button className='btn'>Order</button>
     </div>
   )
 }
+
+const PizzaList = ({content}) => {
+  return (
+    <ul className='pizzas'>
+    { content.map((item) => <Pizza key={item.name} pizzaContent={item}/>) }
+    </ul>
+  )
+}
+
+const Pizza = (pizzaContent) => {
+  const content = pizzaContent.pizzaContent;
+  return (
+    <li className={ content.soldOut ? 'pizza' : 'pizza' }>
+      <img src={content.photoName} alt={content.name} />
+      <h3>{content.name}</h3>
+      <p>{content.ingredients}</p><span>{content.price}$</span>
+    </li>
+  )
+}
+
 
 export default App;

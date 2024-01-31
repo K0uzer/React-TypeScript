@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-const pizzaData = [
+const Pizzas = [
   {
     name: "Focaccia",
     ingredients: "Bread with italian olive oil and rosemary",
@@ -49,4 +49,4 @@ const pizzaData = [
 ];
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App content={pizzaData} />);
+root.render(<App Pizzas={Pizzas} />);
