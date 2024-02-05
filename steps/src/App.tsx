@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './index.css'
+import React from 'react';
 
-const messages = [
+const messages:string[] = [
   "Learn React ⚛️",
   "Apply for jobs 💼",
   "Invest your new income 🤑",
@@ -21,16 +22,16 @@ const Steps = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   const handlePrevious = () => {
-    if(step > 1) setStep((s) => s - 1)
+    if(step > 1) setStep((s:number) => s - 1)
   }
 
   const handleNext = () => {
-    if(step < 3) setStep((s) => s + 1)
+    if(step < 3) setStep((s:number) => s + 1)
   }
 
   return (
     <div>
-      <button type="button" className='close' onClick={() => setIsOpen((is) =>!is)}>&times;</button>
+      <button type="button" className='close' onClick={() => setIsOpen((is:boolean) =>!is)}>&times;</button>
       { isOpen && (
         <div className="steps">
           <div className="numbers">
