@@ -1,60 +1,28 @@
-import React, { useState } from 'react';
 import './App.css';
+import { useState } from 'react';
+import Step from './Components/Step';
+import Count from './Components/Count';
 
-interface counterButton {
-  sum:number,
-  typeOfChange: string,
-  set: any,
-}
+const date = new Date();
 
-function App() {
+const App = () => {
+
+  const [step, setStep] = useState(0)
+  const [count, countStep] = useState(0)
+
+  date.setDate(date.getDate() + count);
+
+  let content = `Today is ${date.toDateString()}`;
+  if(count > 0) content = `${count} day from today is ${date.toDateString()}`;
+  if(count < 0) content = `${Math.abs(count)} days ago was ${date.toDateString()}`;
+
   return (
     <div className="App">
-      <Counter />
-      <p></p>
+        <Step step={step} setStep={setStep} />
+        <Count step={step} count={count} countStep={countStep} />
+        <p>{content}</p>
     </div>
   );
-}
-
-const Counter: React.FC = () => {
-
-  const [step, setStep] = useState(1)
-  const [count, countStep] = useState(1)
-
-  const date: Date = new Date();
-  date.setDate(date.getDate() + count)
-
-  return (
-    <>
-      <div style={{display:'flex', justifyContent:'center', alignItems: 'center'}}>
-        <Button sum={1} typeOfChange="-" set={setStep}/>
-        <p>Step {step}</p>
-        <Button sum={1} typeOfChange="+" set={setStep}/>
-      </div>
-      <div style={{display:'flex', justifyContent:'center', alignItems: 'center'}}>
-        <Button sum={step} typeOfChange="-" set={countStep}/>
-        <p>Count {count}</p>
-        <Button sum={step} typeOfChange="+" set={countStep}/>
-      </div>
-      <p>
-        <span>
-          { count === 0 ? "Today is " : count > 0 ? `${count} day from today is ` : `${Math.abs(count)} days ago was ` }
-        </span>
-          {date.toDateString()}
-      </p>
-    </>
-  )
-}
-
-const Button = ({sum, typeOfChange, set}: counterButton) => {
-
-  const handleButtonClick = () => {
-    set((s:any) => typeOfChange === '+' ? s + sum : s - sum)
-  }
-
-  return (
-    <button onClick={handleButtonClick}>{typeOfChange}</button>
-  )
 }
 
 export default App;
