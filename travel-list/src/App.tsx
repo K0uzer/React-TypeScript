@@ -1,70 +1,23 @@
-import './App.css';
 import './index.css';
-
-interface Task {
-  readonly id: number,
-  task: string,
-  ready: boolean,
-}
-
-const tasks: Task[] = [
-  {
-    id: 1,
-    task: 'Купить воды',
-    ready: false,
-  },
-]
+import Logo from './Components/Logo';
+import Form from './Components/Form';
+import ContentList from './Components/ContentList';
+import Statistics from './Components/Statistics';
+// import { useState } from 'react';
+// import { tasks } from './tasks'
 
 
 export default function App() {
 
+  // const [task, setTask] = useState('');
+  // const handleAddTask = () => setTask([...tasks, task])
+
   return (
-    <section className="App">
+    <div className="App">
       <Logo />
       <Form />
       <ContentList />
       <Statistics />
-    </section>
+    </div>
   );
-}
-
-const Logo = () => {
-  return (
-    <h1>💕Far Away🎶</h1>
-  )
-}
-
-const Form = () => {
-  return (
-    <section className='add-form'>
-      <h3>What do you need for your 🤩 trip?</h3>
-    </section>
-  )
-}
-
-const ContentList = () => {
-  return (
-    <section className='list'>
-      <ul>{tasks.map((task:any) => <Item />)}</ul>
-    </section>
-  )
-}
-
-const Item = ({task, ready}:{task:string, ready:boolean}) => {
-  return (
-    <li style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <p>{task}</p><button style={{cursor:'pointer', background: 'none'}}>✔️</button>
-    </li>
-  )
-}
-
-const Statistics = () => {
-
-
-
-  return (
-    <footer className='footer'>
-      🧮 You have {content.length} items on your list, and you already packed {} ({}%)
-    </footer>
-  )
 }

@@ -1,4 +1,4 @@
-/* 
+/*
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
   { id: 2, description: "Socks", quantity: 12, packed: false },
@@ -102,7 +102,6 @@ input {
 .list ul {
   list-style: none;
   width: 80%;
-  overflow-y: scroll;
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
