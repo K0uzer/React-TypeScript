@@ -1,26 +1,49 @@
+import React, { FC, useState } from "react";
 
-const Form = () => {
+export interface NewItemProps {
+    description: string,
+    quantity: number,
+    package: boolean,
+    id: number,
+}
 
-    const pushTask = (evt:any) => {
-        evt.preventDefault();
+const Form:FC = ({ setItems }) => {
+
+    const [description, setDescription] = useState<string>('')
+    const [quantity, setQuantity] = useState<number>(1)
+
+    const handleAddItems = (item:any) => {
+        setItems((prevItems: any) => [...prevItems, item])
     }
 
+    const handleSubmit = (evt:React.FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+
+        if(!description) return
+
+        const newItem:NewItemProps = {
+            description,
+            quantity,
+            package: false,
+            id: Date.now(),
+        }
+
+        handleAddItems(newItem)
+
+        console.log(newItem)
+
+        setDescription('')
+        setQuantity(1)
+    }
+
+
     return (
-        <form className='add-form'>
-            <input type="text" placeholder="Наименование задачи" />
-            <select name="countElement">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+        <form className='add-form' onSubmit={handleSubmit}>
+            <input type="text" placeholder="Наименование задачи" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <select name="countElement" onChange={(e) => setQuantity(+e.target.value)} value={quantity}>
+                {Array.from({length:20}, (_, index) => index + 1).map((item) => <option key={item} value={item}>{item}</option>)}
             </select>
-            <button onClick={pushTask}>Добавить</button>
+            <button>Добавить</button>
         </form>
     )
 }

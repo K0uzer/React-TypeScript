@@ -17,8 +17,8 @@ const Item = ({id, task, ready, quantity}:Task) => {
 
     return (
         <li style={styleBlock}>
-            <p style={styleTask}>{task}: {quantity}</p>
             <button onClick={changeCondition}>{condition()}</button>
+            <p style={styleTask}>{task}: {quantity}</p>
         </li>
         )
     }

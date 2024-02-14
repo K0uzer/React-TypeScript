@@ -1,21 +1,18 @@
 import './index.css';
 import Logo from './Components/Logo';
-import Form from './Components/Form';
+import Form, { NewItemProps } from './Components/Form';
 import ContentList from './Components/ContentList';
 import Statistics from './Components/Statistics';
-// import { useState } from 'react';
-// import { tasks } from './tasks'
-
+import { useState } from 'react';
 
 export default function App() {
 
-  // const [task, setTask] = useState('');
-  // const handleAddTask = () => setTask([...tasks, task])
+  const [items, setItems] = useState<NewItemProps[]>([])
 
   return (
     <div className="App">
       <Logo />
-      <Form />
+      <Form setItems={setItems} />
       <ContentList />
       <Statistics />
     </div>
