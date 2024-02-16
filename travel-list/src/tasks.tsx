@@ -1,22 +1,22 @@
 
 export interface Task {
-    id: number,
-    task: string,
-    quantity: number,
-    ready: boolean,
+  description: string,
+  quantity: number,
+  packages: boolean,
+  id: number,
 }
 
 export const tasks: Task[] = [
   {
-    id: 1,
-    task: 'Купить воды',
-    quantity: 2,
-    ready: false,
+    description: 'Купить воды',
+    quantity: 5,
+    packages: true,
+    id: 123421,
   },
   {
-    id: 2,
-    task: 'Купить еды',
+    description: 'Купить еды',
     quantity: 5,
-    ready: true,
+    packages: false,
+    id: 125435346,
   },
 ]

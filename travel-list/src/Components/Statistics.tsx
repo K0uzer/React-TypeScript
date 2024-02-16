@@ -1,7 +1,7 @@
 import { tasks } from "../tasks"
 
-let count = tasks.filter((item) => item.ready === true).length
-let percent = (tasks.filter((item) => item.ready === true).length / tasks.length) * 100
+let count = tasks.filter((item) => item.packages === true).length
+let percent = (tasks.filter((item) => item.packages === true).length / tasks.length) * 100
 
 const Statistics = () => {
     if(count === 0) percent = 0

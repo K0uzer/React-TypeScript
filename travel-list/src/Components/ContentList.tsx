@@ -1,12 +1,11 @@
-import { tasks } from '../tasks'
-import Item from './Item'
+import Item from "./Item"
 
-const content = tasks.map(({id, task, quantity, ready}, index) => <Item key={index} id={id} quantity={quantity} task={task} ready={ready}/>)
-
-const ContentList = () => {
+const ContentList = ({handleDeleteItem, items}:{handleDeleteItem: any, items:any}) => {
     return (
         <section className='list'>
-            <ul>{content}</ul>
+            <ul>
+                { items?.map((item:any, index:any) => <Item key={index} item={item} handleDeleteItem={handleDeleteItem} />) ?? `Что-то пошло не так....` }
+            </ul>
         </section>
     )
 }
