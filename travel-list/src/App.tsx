@@ -14,18 +14,18 @@ export default function App() {
     setItems(tasks)
   }, [])
 
-  const handleAddItems = (item:[]) => {
-    setItems((prevItems: any) => [...prevItems, item])
-  }
+  const handleAddItems = (item:[]) => setItems((prevItems: any) => [...prevItems, item])
 
-  const handleDeleteItem = (id:any) => setItems((e:any)=> e.filter(e.id !== id))
+  const handleDeleteItem = (id:number) => setItems((e:any) => e.filter((e:any) => e.id !== id))
+
+  const handleToggleItem = (id:any) => tasks.filter((task) => task.id === id ? task.packages = !task.packages : task)
 
   return (
     <div className="App">
       <Logo />
       <Form handleAddItems={handleAddItems} />
-      <ContentList handleDeleteItem={handleDeleteItem} items={items} />
-      <Statistics />
+      <ContentList handleToggleItem={handleToggleItem} handleDeleteItem={handleDeleteItem} items={items} />
+      <Statistics items={items} />
     </div>
   );
 }

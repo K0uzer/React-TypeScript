@@ -1,11 +1,13 @@
 import Item from "./Item"
 
-const ContentList = ({handleDeleteItem, items}:{handleDeleteItem: any, items:any}) => {
+const ContentList = ({handleToggleItem, handleDeleteItem, items}:{handleToggleItem:any, handleDeleteItem: any, items:any}) => {
     return (
         <section className='list'>
-            <ul>
-                { items?.map((item:any, index:any) => <Item key={index} item={item} handleDeleteItem={handleDeleteItem} />) ?? `Что-то пошло не так....` }
-            </ul>
+            {
+                items.length > 0 ? <ul>
+                    { items?.map((item:any, index:any) => <Item key={index} item={item} handleDeleteItem={handleDeleteItem} handleToggleItem={handleToggleItem} />) }
+                </ul> : <p>Список задач пуст.</p>
+            }
         </section>
     )
 }

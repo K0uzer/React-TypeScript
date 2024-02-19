@@ -1,21 +1,18 @@
-import { useState } from 'react';
-import { tasks } from '../tasks'
+import { useState } from 'react'
 
 const styleBlock = {display:'flex', justifyContent: 'center', alignItems: 'center'}
 
-const Item = ({handleDeleteItem, item}:{handleDeleteItem:any, item:any}) => {
+const Item = ({handleToggleItem, handleDeleteItem, item}:{handleToggleItem:any, handleDeleteItem:any, item:any}) => {
+
     let styleTask;
+
     const [state, setState] = useState(item.packages)
-    const event = tasks.filter((e) => e.id === item.id).map((e) => e.packages = !e.packages)
-    const condition = () => state === true ? `❌` : `✔️`
-    const changeCondition = () => setState(event)
-    console.log(event)
+    const condition = state === true ? `❌` : `✔️`
 
     if(state === true) styleTask = {textDecoration:'line-through', textDecorationColor:'#9f246e'};
-
     return (
         <li style={styleBlock}>
-            <button onClick={changeCondition}>{condition()}</button>
+            <button onClick={() => setState(handleToggleItem(item.id))}>{condition}</button>
             <p style={styleTask}>{item.description}: {item.quantity}</p>
             <button onClick={() => handleDeleteItem(item.id)}>📛</button>
         </li>

@@ -1,14 +1,19 @@
-import { tasks } from "../tasks"
 
-let count = tasks.filter((item) => item.packages === true).length
-let percent = (tasks.filter((item) => item.packages === true).length / tasks.length) * 100
+const Statistics = ({items}:{items:any}) => {
 
-const Statistics = () => {
+    let count = items.filter((item:any) => item.packages === true).length
+    let percent = Math.round(items.filter((item:any) => item.packages === true).length / items.length) * 100
+
     if(count === 0) percent = 0
 
     return (
         <footer className='footer'>
-            🧮 You have {tasks.length} items on your list, and you already packed {count} ({percent}%)
+            <em style={{display:"flex", justifyContent: "center", padding: '10px'}}>
+                {
+                    percent === 100 ? 'You got everything! Ready to go 🤩' :
+                    `🧮 You have ${items.length} items on your list, and you already packed ${count} (${percent}%)`
+                }
+            </em>
         </footer>
     )
 }
