@@ -1,5 +1,10 @@
 
 const Statistics = ({items}:{items:any}) => {
+    if(!items.length) return (
+        <p className="footer">
+            <em>Start adding some items to your packing list 🚀</em>
+        </p>
+    )
 
     let count = items.filter((item:any) => item.packages === true).length
     let percent = Math.round(items.filter((item:any) => item.packages === true).length / items.length) * 100

@@ -1,6 +1,7 @@
 import Item from "./Item"
+import Sort from "./Sort"
 
-const ContentList = ({handleToggleItem, handleDeleteItem, items}:{handleToggleItem:any, handleDeleteItem: any, items:any}) => {
+const ContentList = ({handleClearList, handleToggleItem, handleDeleteItem, items}:{handleClearList:any, handleToggleItem:any, handleDeleteItem: any, items:any}) => {
     return (
         <section className='list'>
             {
@@ -8,6 +9,7 @@ const ContentList = ({handleToggleItem, handleDeleteItem, items}:{handleToggleIt
                     { items?.map((item:any, index:any) => <Item key={index} item={item} handleDeleteItem={handleDeleteItem} handleToggleItem={handleToggleItem} />) }
                 </ul> : <p>Список задач пуст.</p>
             }
+            <Sort handleClearList={handleClearList} items={items} />
         </section>
     )
 }

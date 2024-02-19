@@ -20,11 +20,16 @@ export default function App() {
 
   const handleToggleItem = (id:any) => tasks.filter((task) => task.id === id ? task.packages = !task.packages : task)
 
+  const handleClearList = () => {
+      let answer = window.confirm('Отчистить список?');
+      if(answer) setItems([])
+  }
+
   return (
     <div className="App">
       <Logo />
       <Form handleAddItems={handleAddItems} />
-      <ContentList handleToggleItem={handleToggleItem} handleDeleteItem={handleDeleteItem} items={items} />
+      <ContentList handleClearList={handleClearList} handleToggleItem={handleToggleItem} handleDeleteItem={handleDeleteItem} items={items} />
       <Statistics items={items} />
     </div>
   );
