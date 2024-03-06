@@ -7,30 +7,39 @@ import { useEffect, useState } from 'react';
 import { tasks } from './tasks';
 
 export default function App() {
+    const [items, setItems] = useState<any>([])
 
-  const [items, setItems] = useState<any>([])
+    useEffect(() => {
+        setItems(tasks)
+    }, [])
 
-  useEffect(() => {
-    setItems(tasks)
-  }, [])
+    const handleAddItems = (item: []) =>
+        setItems((prevItems: any) => [...prevItems, item])
 
-  const handleAddItems = (item:[]) => setItems((prevItems: any) => [...prevItems, item])
+    const handleDeleteItem = (id: number) =>
+        setItems((e: any) => e.filter((e: any) => e.id !== id))
 
-  const handleDeleteItem = (id:number) => setItems((e:any) => e.filter((e:any) => e.id !== id))
+    const handleToggleItem = (id: any) =>
+        tasks.filter((task) =>
+            task.id === id ? { ...task, packages: !task.packages } : task
+        )
 
-  const handleToggleItem = (id:any) => tasks.filter((task) => task.id === id ? task.packages = !task.packages : task)
+    const handleClearList = () => {
+        let answer = window.confirm('Отчистить список?')
+        if (answer) setItems([])
+    }
 
-  const handleClearList = () => {
-      let answer = window.confirm('Отчистить список?');
-      if(answer) setItems([])
-  }
-
-  return (
-    <div className="App">
-      <Logo />
-      <Form handleAddItems={handleAddItems} />
-      <ContentList handleClearList={handleClearList} handleToggleItem={handleToggleItem} handleDeleteItem={handleDeleteItem} items={items} />
-      <Statistics items={items} />
-    </div>
-  );
+    return (
+        <div className="App">
+            <Logo />
+            <Form handleAddItems={handleAddItems} />
+            <ContentList
+                handleClearList={handleClearList}
+                handleToggleItem={handleToggleItem}
+                handleDeleteItem={handleDeleteItem}
+                items={items}
+            />
+            <Statistics items={items} />
+        </div>
+    )
 }
