@@ -17,10 +17,10 @@ export default function App() {
         setItems((prevItems: any) => [...prevItems, item])
 
     const handleDeleteItem = (id: number) =>
-        setItems((e: any) => e.filter((e: any) => e.id !== id))
+        setItems((items: any) => items.filter((items: any) => items.id !== id))
 
     const handleToggleItem = (id: any) =>
-        tasks.filter((task) =>
+        tasks.map((task) =>
             task.id === id ? { ...task, packages: !task.packages } : task
         )
 

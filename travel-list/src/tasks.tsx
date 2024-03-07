@@ -1,9 +1,9 @@
 
 export interface Task {
-  description: string,
-  quantity: number,
-  packages: boolean,
-  id: number,
+    description: string
+    quantity: number
+    packages: boolean
+    id: number
 }
 
 export const tasks: Task[] = [

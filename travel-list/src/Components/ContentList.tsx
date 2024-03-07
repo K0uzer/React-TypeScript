@@ -31,10 +31,10 @@ const ContentList = ({
                 <ul>
                     {items.map((item: any) => (
                         <Item
-                            key={item.id}
                             item={item}
                             handleDeleteItem={handleDeleteItem}
                             handleToggleItem={handleToggleItem}
+                            key={item.id}
                         />
                     ))}
                 </ul>
