@@ -5,7 +5,7 @@
   "jsxSingleQuote": false,
   "browserslist": true,
   "trailingComma": "all",
-  "printWidth": 80,
+  "printWidth": 60,
   "arrowParens": "always",
   "endOfLine": "lf"
 }
