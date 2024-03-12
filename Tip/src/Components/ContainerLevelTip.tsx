@@ -4,16 +4,22 @@ const ContainerLevelTip = ({
     children,
     arrayTip,
     setArrayTip,
+    index,
 }: {
     children: any
-    arrayTip: number[]
+    arrayTip: any
     setArrayTip: any
+    index: number
 }) => {
-    const [percent, setPercent] = useState<number>(0)
+    const [percent, setPercent] = useState('0')
+
     useEffect(() => {
         const getContent = () => {
-            setArrayTip(arrayTip.push(percent))
-            console.log(arrayTip)
+            setArrayTip([
+                (arrayTip[index] = { percent: percent }),
+                ...arrayTip,
+            ])
+            arrayTip.length = 2
         }
         getContent()
     }, [percent])
@@ -22,8 +28,8 @@ const ContainerLevelTip = ({
         <div className="container">
             <>{children}</>
             <select
-                onChange={(s) => {
-                    setPercent(Number(s.target.value))
+                onChange={(s: any) => {
+                    setPercent(s.target.value)
                 }}
             >
                 <option value="0">Dissatisfied (0%)</option>
