@@ -1,7 +1,10 @@
 export type TipCalculationProps = {
     result: number
     price: number
-    tip: number
+    firstTip: any
+    SetFirstTip: any
+    twoTip: any
+    setTwoTip: any
 }
 
 export type ContainerPriceProps = {

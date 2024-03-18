@@ -10,12 +10,23 @@ const childrenContent = [
     <p>How did your friend like the service?</p>,
 ]
 
+
 function App() {
     const [check, setCheck] = useState(0)
-    const [arrayTip, setArrayTip] = useState([
-        { percent: '0' },
-        { percent: '0' },
-    ])
+    const [firstTip, setFirstTip] = useState(0)
+    const [twoTip, setTwoTip] = useState(0)
+
+    const changeContent = ({
+        data,
+        index,
+    }: {
+        data: any
+        index: any
+    }) => {
+        if (index === 0) setFirstTip(data)
+        if (index === 1) setTwoTip(data)
+    }
+
     return (
         <div className="App">
             <ContainerPrice
@@ -27,9 +38,10 @@ function App() {
             {childrenContent.map((item, index) => (
                 <ContainerLevelTip
                     key={index}
-                    arrayTip={arrayTip}
-                    setArrayTip={setArrayTip}
                     index={index}
+                    changeContent={changeContent}
+                    firstTip={firstTip}
+                    twoTip={twoTip}
                 >
                     {item}
                 </ContainerLevelTip>
@@ -37,10 +49,16 @@ function App() {
             {check > 0 && (
                 <TipCalculation
                     check={check}
-                    arrayTip={arrayTip}
+                    firstTip={firstTip}
+                    twoTip={twoTip}
                 />
             )}
-            <ResetButton>Button Of Reset</ResetButton>
+            <ResetButton
+                setCheck={setCheck}
+                changeContent={changeContent}
+            >
+                Button Of Reset
+            </ResetButton>
         </div>
     )
 }

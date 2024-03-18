@@ -1,35 +1,23 @@
-import { useEffect, useState } from 'react'
-
 const ContainerLevelTip = ({
     children,
-    arrayTip,
-    setArrayTip,
     index,
+    changeContent,
+    firstTip,
+    twoTip,
 }: {
     children: any
-    arrayTip: any
-    setArrayTip: any
-    index: number
+    index: any
+    changeContent: any
+    firstTip: any
+    twoTip: any
 }) => {
-    const [percent, setPercent] = useState('0')
-
-    useEffect(() => {
-        const getContent = () => {
-            setArrayTip([
-                (arrayTip[index] = { percent: percent }),
-                ...arrayTip,
-            ])
-            arrayTip.length = 2
-        }
-        getContent()
-    }, [percent])
-
     return (
         <div className="container">
             <>{children}</>
             <select
+                value={index > 0 ? twoTip : firstTip}
                 onChange={(s: any) => {
-                    setPercent(s.target.value)
+                    changeContent(s.target.value, index)
                 }}
             >
                 <option value="0">Dissatisfied (0%)</option>
