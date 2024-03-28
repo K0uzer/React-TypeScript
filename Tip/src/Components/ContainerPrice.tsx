@@ -1,4 +1,8 @@
-import { ContainerPriceProps } from '../Types/TypeOfTipCalculation'
+type ContainerPriceProps = {
+    check: number
+    setCheck: any
+    children: any
+}
 
 const ContainerPrice = ({
     check,

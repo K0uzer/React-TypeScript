@@ -1,5 +1,13 @@
-import { FriendListProps } from '../Types/Types'
+import { Friend as FriendItem } from '../Types/Types'
 import Friend from './Friend'
+
+type FriendListProps = {
+    friends: FriendItem[]
+    isSelectedSplitForm: boolean
+    selectedFriend: FriendItem | null
+    setIsSelectedSplitForm: React.Dispatch<React.SetStateAction<boolean>>
+    setSelectedFiend: React.Dispatch<React.SetStateAction<FriendItem | null>>
+}
 
 const FriendList = ({
     friends,
@@ -10,7 +18,7 @@ const FriendList = ({
 }: FriendListProps) => {
     return (
         <ul>
-            {friends.map((item: any) => (
+            {friends.map((item: FriendItem) => (
                 <Friend
                     key={item.id}
                     item={item}

@@ -3,16 +3,13 @@ import FriendList from './Components/FriendList'
 import NewFriend from './Components/NewFriend'
 import { initialFriends } from './initialFriend'
 import SplitBill from './Components/SplitBill'
-import { SelectedFriend } from './Types/Types'
+import { Friend } from './Types/Types'
 
 export function App() {
-    const [isOpenNewFriend, setIsOpenNewFriend] = useState<boolean>(false)
-    const [isSelectedSplitForm, setIsSelectedSplitForm] =
-        useState<boolean>(false)
-    const [selectedFriend, setSelectedFiend] = useState<SelectedFriend | null>(
-        null,
-    )
-    const [friends, setFriends] = useState<SelectedFriend[]>(initialFriends)
+    const [isOpenNewFriend, setIsOpenNewFriend] = useState(false)
+    const [isSelectedSplitForm, setIsSelectedSplitForm] = useState(false)
+    const [selectedFriend, setSelectedFiend] = useState<Friend | null>(null)
+    const [friends, setFriends] = useState<Friend[]>(initialFriends)
 
     return (
         <div className="App">
@@ -31,6 +28,7 @@ export function App() {
                         setFriends={setFriends}
                         selectedFriend={selectedFriend}
                         setSelectedFiend={setSelectedFiend}
+                        key={selectedFriend.id}
                     />
                 )}
                 <NewFriend

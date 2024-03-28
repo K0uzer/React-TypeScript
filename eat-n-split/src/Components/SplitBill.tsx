@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { SplitBillProps } from '../Types/Types'
+import { Friend } from '../Types/Types'
+
+type SplitBillProps = {
+    friends: Friend[]
+    selectedFriend: Friend
+    setFriends: React.Dispatch<React.SetStateAction<Friend[]>>
+    setSelectedFiend: React.Dispatch<React.SetStateAction<Friend | null>>
+}
 
 const SplitBill = ({
     setFriends,

@@ -1,3 +1,12 @@
+export type TipCalculationProps = {
+    result: number
+    price: number
+    firstTip: any
+    SetFirstTip: any
+    twoTip: any
+    setTwoTip: any
+}
+
 const TipCalculation = ({
     check,
     firstTip,

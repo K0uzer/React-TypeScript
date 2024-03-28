@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { NewFriendProps } from '../Types/Types'
+import { Friend } from '../Types/Types'
+
+type NewFriendProps = {
+    friends: Friend[]
+    isOpenNewFriend: boolean
+    setFriends: React.Dispatch<React.SetStateAction<Friend[]>>
+    setIsOpenNewFriend: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 const NewFriend = ({
     setFriends,

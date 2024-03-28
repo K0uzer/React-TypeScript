@@ -1,4 +1,12 @@
-import { FriendProps } from '../Types/Types'
+import { Friend as FriendItem } from '../Types/Types'
+
+type FriendProps = {
+    item: FriendItem
+    isSelectedSplitForm: boolean
+    selectedFriend: FriendItem | null
+    setIsSelectedSplitForm: React.Dispatch<React.SetStateAction<boolean>>
+    setSelectedFiend: React.Dispatch<React.SetStateAction<FriendItem | null>>
+}
 
 const Friend = ({
     item,
