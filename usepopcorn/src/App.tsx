@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { TempMovieData, TempWatchedData } from './Types/Types'
+import { useState } from 'react'
 import Header from './Components/Header/Header'
 import Main from './Components/Main/Main'
 import NumResults from './Components/Header/NumResults'
@@ -11,52 +10,32 @@ import Loader from './UI/Loader'
 import CurError from './UI/CurError'
 import InputSearch from './UI/InputSearch'
 import SelectedMovie from './Components/Main/SelectedMovie'
-
-const KEY = '96c2a11f'
+import useMovies from './hooks/useMovies'
+import useLocalStorageState from './hooks/useLocalStorageState'
 
 export default function App() {
-    const [query, setQuery] = useState('interstellar')
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState<string | null>(null)
-    const [movies, setMovies] = useState<TempMovieData[]>([])
-    const [watched, setWatched] = useState<TempWatchedData[]>([])
+    const [query, setQuery] = useState('')
+
     const [selectedId, setSelectedId] = useState<string | null>(null)
+    const [userRating, setUserRating] = useState('')
+    const { movies, isLoading, error } = useMovies(query, handleCloseMovie)
+    const [watched, setWatched] = useLocalStorageState([], 'watched')
+
+    function handleCloseMovie() {
+        setSelectedId(null)
+    }
 
     const handleSelectedMovie = (id: string) =>
         setSelectedId((selectedId) => (id === selectedId ? null : id))
 
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                setIsLoading((loading) => !loading)
-                const res = await fetch(
-                    `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-                )
+    const handleAddWatched = (movie: any) =>
+        setWatched((watched: any) => [...watched, movie])
 
-                if (!res.ok)
-                    throw new Error('Something went wrong with fetching movies')
-
-                const data = await res.json()
-                if (data.Response === 'False')
-                    throw new Error('Movie not fount')
-
-                setMovies(data.Search)
-                setError(null)
-            } catch (err: unknown) {
-                if (err instanceof Error) {
-                    setError(err.message)
-                }
-            } finally {
-                setIsLoading((loading) => !loading)
-            }
-        }
-        if (query.length < 2) {
-            setMovies([])
-            setError(null)
-            return
-        }
-        fetchMovies()
-    }, [query])
+    const handleDeleteWatched = (id: number) => {
+        setWatched((watched: any) =>
+            watched.filter((movie: any) => movie.imdbID !== id),
+        )
+    }
 
     return (
         <>
@@ -77,11 +56,21 @@ export default function App() {
                 </Box>
                 <Box>
                     {selectedId ? (
-                        <SelectedMovie selectedId={selectedId} />
+                        <SelectedMovie
+                            selectedId={selectedId}
+                            closeMovie={handleCloseMovie}
+                            addWatched={handleAddWatched}
+                            onSetRating={setUserRating}
+                            userRating={userRating}
+                            watched={watched}
+                        />
                     ) : (
                         <>
                             <WatchedSummery watched={watched} />
-                            <WatchedMovieList watched={watched} />
+                            <WatchedMovieList
+                                watched={watched}
+                                onDeleteWatched={handleDeleteWatched}
+                            />
                         </>
                     )}
                 </Box>

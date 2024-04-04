@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import StarRating from '../../StarRating'
+import useKey from '../../hooks/useKey'
 
 type MovieItem = {
     Title: any
@@ -14,20 +15,26 @@ type MovieItem = {
     Genre: any
 }
 
-const SelectedMovie = ({ selectedId, onCloseMovie }: any) => {
+const SelectedMovie = ({
+    selectedId,
+    closeMovie,
+    addWatched,
+    onSetRating,
+    userRating,
+    watched,
+}: any) => {
     const [movie, setMovie] = useState({
-        Title: '',
-        Year: '',
-        Poster: '',
-        Runtime: '',
-        imdbRating: '',
-        Plot: '',
-        Released: '',
-        Actors: '',
-        Director: '',
-        Genre: '',
+        Title: null,
+        Year: null,
+        Poster: null,
+        Runtime: null,
+        imdbRating: null,
+        Plot: null,
+        Released: null,
+        Actors: null,
+        Director: null,
+        Genre: null,
     })
-    console.log(movie)
     const {
         Title: title,
         Year: year,
@@ -41,6 +48,30 @@ const SelectedMovie = ({ selectedId, onCloseMovie }: any) => {
         Genre: genre,
     }: MovieItem = movie
 
+    const countRef = useRef<number>(0)
+
+    const isWatched = watched
+        .map((movie: any) => movie.imdbId)
+        .includes(selectedId)
+
+    const handleAdd = () => {
+        const newWatchedMovie = {
+            imdbId: selectedId,
+            title,
+            year,
+            poster,
+            imdbRating: +imdbRating,
+            runtime: +runtime.split(' ').at(0),
+            userRating,
+        }
+
+        addWatched(newWatchedMovie)
+        onSetRating('')
+        closeMovie()
+    }
+
+    useKey('Escape', closeMovie)
+
     useEffect(() => {
         const getMovieDetails = async () => {
             const res = await fetch(
@@ -50,12 +81,21 @@ const SelectedMovie = ({ selectedId, onCloseMovie }: any) => {
             setMovie(data)
         }
         getMovieDetails()
-    }, [])
+    }, [selectedId])
+
+    useEffect(() => {
+        if (!title) return
+        document.title = `Movie | ${title}`
+
+        return () => {
+            document.title = 'usePopcorn'
+        }
+    }, [title])
 
     return (
         <div className="details">
             <header>
-                <button className="btn-back" onClick={onCloseMovie}>
+                <button className="btn-back" onClick={closeMovie}>
                     &larr;
                 </button>
                 <img src={poster} alt={`Poster of ${movie}`} />
@@ -66,21 +106,40 @@ const SelectedMovie = ({ selectedId, onCloseMovie }: any) => {
                     </p>
                     <p>
                         <span>🚀</span>
-                        {imdbRating} IMDb rating
+                        {imdbRating} Rating
                     </p>
                 </div>
             </header>
             <section>
                 <div className="rating">
-                    <StarRating
-                        maxRating={10}
-                        color="#fcc419"
-                        className=""
-                        size={27}
-                        massages={[]}
-                        defaultRating={1}
-                        onSetRating
-                    />
+                    {!isWatched ? (
+                        <>
+                            <StarRating
+                                maxRating={10}
+                                color="#fcc419"
+                                className=""
+                                size={27}
+                                massages={[]}
+                                defaultRating={0}
+                                onSetRating={onSetRating}
+                            />
+                            {userRating > 0 ? (
+                                <button
+                                    className="btn-add"
+                                    onClick={() => handleAdd()}
+                                >
+                                    + Add to list
+                                </button>
+                            ) : (
+                                ''
+                            )}
+                        </>
+                    ) : (
+                        <p>
+                            You rated with movie {userRating}
+                            <span>🤩🤩</span>
+                        </p>
+                    )}
                 </div>
                 <p>
                     <em>{plot}</em>

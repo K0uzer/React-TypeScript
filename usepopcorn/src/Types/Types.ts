@@ -1,15 +1,15 @@
 export type TempMovieData = {
     imdbID: string
-    Title: string
-    Year: string
-    Poster: string
+    title: string
+    year: string
+    poster: string
 }
 
 export type TempWatchedData = {
     imdbID: string
-    Title: string
-    Year: string
-    Poster: string
+    title: string
+    year: string
+    poster: string
     runtime: number
     imdbRating: number
     userRating: number

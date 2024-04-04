@@ -3,8 +3,10 @@ import WatchedMovie from './WatchedMovie'
 
 const WatchedMovieList = ({
     watched,
+    onDeleteWatched,
 }: {
     watched: any
+    onDeleteWatched: any
 }) => {
     return (
         <ul className="list">
@@ -12,6 +14,7 @@ const WatchedMovieList = ({
                 <WatchedMovie
                     key={movie.imdbID}
                     movie={movie}
+                    onDeleteWatched={onDeleteWatched}
                 />
             ))}
         </ul>
