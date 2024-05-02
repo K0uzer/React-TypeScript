@@ -1,5 +1,7 @@
 import { useEffect, useReducer } from 'react'
+
 import './App.css'
+
 import Header from './Header'
 import Main from './Main'
 import Loader from './Loader'
@@ -9,6 +11,8 @@ import Question from './Question'
 import NextButton from './NextButton'
 import Progress from './Progress'
 import FinishScreen from './FinishScreen'
+import Footer from './Footer'
+import Timer from './Timer'
 
 const initialState = {
     questions: [],
@@ -17,6 +21,7 @@ const initialState = {
     answer: null,
     points: 0,
     highscore: 0,
+    secondsRemainig: 50,
 }
 
 const reducer = (state, action) => {
@@ -59,14 +64,30 @@ const reducer = (state, action) => {
                 answer: null,
                 points: 0,
             }
+        case 'tick':
+            return {
+                ...state,
+                secondsRemainig: state.secondsRemainig - 1,
+                status: state.secondsRemainig === 0 ? 'finished' : state.status,
+            }
         default:
             throw new Error('Action unknown')
     }
 }
 
 function App() {
-    const [{ questions, status, index, answer, points, highscore }, dispatch] =
-        useReducer(reducer, initialState)
+    const [
+        {
+            questions,
+            status,
+            index,
+            answer,
+            points,
+            highscore,
+            secondsRemainig,
+        },
+        dispatch,
+    ] = useReducer(reducer, initialState)
 
     useEffect(() => {
         fetch('http://localhost:9000/questions')
@@ -104,12 +125,18 @@ function App() {
                             dispatch={dispatch}
                             answer={answer}
                         />
-                        <NextButton
-                            dispatch={dispatch}
-                            answer={answer}
-                            index={index}
-                            numQuestions={numQuestions}
-                        />
+                        <Footer>
+                            <Timer
+                                dispatch={dispatch}
+                                secondsRemainig={secondsRemainig}
+                            />
+                            <NextButton
+                                dispatch={dispatch}
+                                answer={answer}
+                                index={index}
+                                numQuestions={numQuestions}
+                            />
+                        </Footer>
                     </>
                 )}
                 {status === 'finished' && (
