@@ -1,23 +1,23 @@
-import Spinner from './Spinner'
-import CityItem from './CityItem'
-import Message from './Message'
+import React from 'react'
 
-import styles from './CityList.module.css'
+import styles from './CountriesList.module.css'
+import Spinner from './Spinner'
+import Message from './Message'
 
 const MASSAGE = 'Add your first city by clicking on a city on map'
 
-const CityList = ({ cities, isLoading }) => {
+const CountriesList = ({ cities, isLoading }) => {
     if (isLoading) return <Spinner />
 
     if (!cities.length) return <Message message={MASSAGE} />
 
     return (
-        <ul className={styles.cityList}>
+        <ul className={styles.countriesList}>
             {cities?.map((city) => (
-                <CityItem key={city.id} city={city} />
+                <CountryItem key={city.id} city={city} />
             ))}
         </ul>
     )
 }
 
-export default CityList
+export default CountriesList

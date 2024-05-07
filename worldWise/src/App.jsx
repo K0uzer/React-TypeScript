@@ -5,25 +5,25 @@ import PageNotFound from '../pages/PageNotFound'
 import AppLayout from '../pages/AppLayout'
 import Product from '../pages/Product'
 import CityList from '../components/CityList'
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import CountriesList from '../components/CountriesList'
 
 const ВАСЕ_URL = 'http://localhost:8000'
 
 function App() {
-    const [cities, setCities] = useState({})
+    const [cities, setCities] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const fetchSites = async () => {
             try {
                 setIsLoading((is) => !is)
                 const res = await fetch(`${ВАСЕ_URL}/cities`)
                 const data = await res.json()
                 setCities(data)
+                setIsLoading((is) => !is)
             } catch (error) {
                 console.log(`${error}!!! <= There was an error loading data...`)
-            } finally {
-                setIsLoading((is) => !is)
             }
         }
         fetchSites()
@@ -50,7 +50,12 @@ function App() {
                     />
                     <Route
                         path="countries"
-                        element={<p>List of countries</p>}
+                        element={
+                            <CountriesList
+                                cities={cities}
+                                isLoading={isLoading}
+                            />
+                        }
                     />
                     <Route path="form" element={<p>Form</p>} />
                 </Route>
