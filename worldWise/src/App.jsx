@@ -6,7 +6,8 @@ import AppLayout from '../pages/AppLayout'
 import Product from '../pages/Product'
 import CityList from '../components/CityList'
 import { useEffect, useState } from 'react'
-import CountriesList from '../components/CountriesList'
+import CountryList from '../components/CountryList'
+import City from '../components/City'
 
 const ВАСЕ_URL = 'http://localhost:8000'
 
@@ -48,10 +49,11 @@ function App() {
                             <CityList cities={cities} isLoading={isLoading} />
                         }
                     />
+                    <Route path="cities/:id" element={<City />} />
                     <Route
                         path="countries"
                         element={
-                            <CountriesList
+                            <CountryList
                                 cities={cities}
                                 isLoading={isLoading}
                             />
