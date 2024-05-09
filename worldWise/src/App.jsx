@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+
 import Pricing from '../pages/Pricing'
 import Homepage from '../pages/Homepage'
 import PageNotFound from '../pages/PageNotFound'
 import AppLayout from '../pages/AppLayout'
 import Product from '../pages/Product'
 import CityList from '../components/CityList'
-import { useEffect, useState } from 'react'
 import CountryList from '../components/CountryList'
 import City from '../components/City'
 

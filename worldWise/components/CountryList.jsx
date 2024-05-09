@@ -4,12 +4,12 @@ import CountryItem from './CountryItem'
 
 import styles from './CountryList.module.css'
 
-const MASSAGE = 'Add your first city by clicking on a city on map'
+const MESSAGE = 'Add your first city by clicking on a city on map'
 
 const CountryList = ({ cities, isLoading }) => {
     if (isLoading) return <Spinner />
 
-    if (!cities.length) return <Message message={MASSAGE} />
+    if (!cities.length) return <Message message={MESSAGE} />
 
     const countries = cities.reduce((acc, city) => {
         if (acc.map((el) => el.country).includes(city.country))
