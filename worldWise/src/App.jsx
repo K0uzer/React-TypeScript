@@ -25,7 +25,7 @@ function App() {
                 setCities(data)
                 setIsLoading((is) => !is)
             } catch (error) {
-                console.log(`${error}!!! <= There was an error loading data...`)
+                alert(`${error}!!! <= There was an error loading data...`)
             }
         }
         fetchSites()

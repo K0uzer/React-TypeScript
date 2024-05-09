@@ -14,7 +14,7 @@ const CityItem = ({ city }) => {
         <li>
             <Link
                 className={styles.cityItem}
-                to={`${id}?let=${position.lat}&lng=${position.lng}}`}
+                to={`${id}?lat=${position.lat}&lng=${position.lng}`}
             >
                 <span className={styles.emoji}>{emoji}</span>
                 <h3 className={styles.name}>{cityName}</h3>
